@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Мини-школа МФЦ</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0D2E6E">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="МФЦ">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0D2E6E;
+  --blue: #1A56C4;
+  --blue-mid: #2D6FE8;
+  --blue-light: #4F8EF7;
+  --sky: #E8F0FD;
+  --sky-dark: #C8D9FA;
+  --white: #FFFFFF;
+  --gray-100: #F4F6FB;
+  --gray-200: #E2E8F5;
+  --gray-400: #8FA3C8;
+  --gray-600: #4A5F85;
+  --gray-800: #1E2E4A;
+  --accent: #F5A623;
+  --accent-light: #FEF3DC;
+  --success: #1A8A4E;
+  --success-light: #E6F5EE;
+  --red: #C0392B;
+  --shadow-sm: 0 2px 8px rgba(13,46,110,0.08);
+  --shadow-md: 0 4px 20px rgba(13,46,110,0.12);
+  --shadow-lg: 0 8px 32px rgba(13,46,110,0.16);
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--gray-100);
+  font-family: 'Montserrat', sans-serif;
+  color: var(--gray-800);
+  font-size: 16px;
+}
+
+/* ─── TABLET SHELL ─── */
+.tablet-shell {
+  width: 768px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--gray-100);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── SCREENS ─── */
+.screen {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+  animation: fadeIn 0.25s ease;
+}
+.screen.active { display: flex; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── HOME SCREEN ─── */
+.home-header {
+  background: linear-gradient(150deg, var(--navy) 0%, var(--blue) 60%, var(--blue-mid) 100%);
+  padding: 48px 36px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.home-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.home-header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 40px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.home-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.logo-icon {
+  width: 52px; height: 52px;
+  background: rgba(255,255,255,0.18);
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+}
+.logo-text { color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+.home-title { font-size: 32px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 10px; }
+.home-subtitle { font-size: 15px; color: rgba(255,255,255,0.72); line-height: 1.5; }
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 28px;
+}
+.stat-pill {
+  background: rgba(255,255,255,0.12);
+  border-radius: var(--r-sm);
+  padding: 12px 10px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.stat-num { font-size: 22px; font-weight: 700; color: #fff; }
+.stat-label { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 2px; letter-spacing: 0.03em; }
+
+.home-body { padding: 28px 24px 100px; flex: 1; }
+.section-label {
+  font-size: 11px; font-weight: 600; color: var(--gray-400);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.service-card {
+  background: var(--white);
+  border-radius: var(--r-md);
+  padding: 20px 18px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  border: 1.5px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+.service-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--sky-dark); }
+.service-card:active { transform: scale(0.98); }
+.card-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 14px;
+}
+.card-icon.blue  { background: var(--sky); }
+.card-icon.amber { background: var(--accent-light); }
+.card-icon.green { background: var(--success-light); }
+.card-icon.navy  { background: #EEF1F8; }
+.card-title { font-size: 14px; font-weight: 600; color: var(--gray-800); margin-bottom: 6px; line-height: 1.3; }
+.card-meta { font-size: 12px; color: var(--gray-400); }
+.card-arrow {
+  position: absolute;
+  bottom: 16px; right: 16px;
+  width: 24px; height: 24px;
+  background: var(--sky);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  color: var(--blue);
+}
+
+.quick-faq {
+  background: var(--white);
+  border-radius: var(--r-md);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 14px;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 14px;
+  transition: background 0.15s;
+}
+.quick-faq:hover { background: var(--sky); }
+.faq-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  flex-shrink: 0;
+}
+.faq-text { font-size: 14px; color: var(--gray-600); flex: 1; }
+.faq-arr { font-size: 12px; color: var(--gray-400); }
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 768px;
+  background: var(--white);
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  padding: 0 8px 8px;
+  z-index: 100;
+  box-shadow: 0 -4px 20px rgba(13,46,110,0.08);
+}
+.nav-item {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 10px 0 4px;
+  cursor: pointer;
+  border-radius: var(--r-sm);
+  transition: background 0.15s;
+  gap: 4px;
+}
+.nav-item:hover { background: var(--sky); }
+.nav-icon { font-size: 20px; }
+.nav-label { font-size: 10px; font-weight: 500; color: var(--gray-400); letter-spacing: 0.03em; }
+.nav-item.active .nav-label { color: var(--blue); }
+.nav-item.active .nav-icon { filter: none; }
+.nav-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--blue);
+  display: none;
+}
+.nav-item.active .nav-dot { display: block; }
+
+/* ─── INNER SCREEN HEADER ─── */
+.inner-header {
+  background: var(--white);
+  padding: 20px 24px 16px;
+  display: flex; align-items: center; gap: 14px;
+  border-bottom: 1px solid var(--gray-200);
+  position: sticky; top: 0; z-index: 10;
+}
+.back-btn {
+  width: 38px; height: 38px;
+  border-radius: var(--r-sm);
+  background: var(--sky);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 16px; color: var(--blue);
+  border: none; flex-shrink: 0;
+  transition: background 0.15s;
+}
+.back-btn:hover { background: var(--sky-dark); }
+.inner-title { font-size: 18px; font-weight: 700; color: var(--gray-800); }
+
+/* ─── SERVICES LIST SCREEN ─── */
+.services-body { flex: 1; padding: 20px 24px 100px; overflow-y: auto; }
+
+.service-row {
+  background: var(--white);
+  border-radius: var(--r-md);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.service-row-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.service-row-header:hover { background: var(--sky); }
+.srv-icon {
+  width: 42px; height: 42px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.srv-info { flex: 1; }
+.srv-name { font-size: 15px; font-weight: 600; color: var(--gray-800); }
+.srv-hint { font-size: 12px; color: var(--gray-400); margin-top: 3px; }
+.srv-toggle { font-size: 13px; color: var(--gray-400); transition: transform 0.25s; }
+.srv-toggle.open { transform: rotate(180deg); }
+
+.service-detail {
+  display: none;
+  padding: 0 20px 20px;
+  border-top: 1px solid var(--gray-200);
+}
+.service-detail.open { display: block; animation: slideDown 0.2s ease; }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.steps-title { font-size: 11px; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: 0.08em; margin: 16px 0 12px; }
+.step-row { display: flex; gap: 12px; margin-bottom: 12px; }
+.step-badge {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--blue); color: #fff;
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.step-content { font-size: 14px; color: var(--gray-600); line-height: 1.55; padding-top: 3px; }
+
+.docs-block {
+  background: var(--sky);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  margin-top: 14px;
+}
+.docs-head { font-size: 12px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+.doc-line { font-size: 13px; color: var(--gray-600); line-height: 1.7; padding-left: 12px; position: relative; }
+.doc-line::before { content: '·'; position: absolute; left: 0; color: var(--blue-light); }
+
+.time-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent-light); border-radius: 20px;
+  padding: 6px 14px; margin-top: 12px;
+  font-size: 12px; font-weight: 500; color: var(--accent);
+}
+
+/* ─── FAQ SCREEN ─── */
+.faq-body { flex: 1; padding: 20px 24px 100px; }
+
+.faq-category { margin-bottom: 24px; }
+.faq-cat-label {
+  font-size: 11px; font-weight: 600; color: var(--gray-400);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.faq-card {
+  background: var(--white);
+  border-radius: var(--r-md);
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.faq-question {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.faq-question:hover { background: var(--sky); }
+.faq-q-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.faq-q-text { font-size: 14px; font-weight: 500; color: var(--gray-800); flex: 1; line-height: 1.4; }
+.faq-chevron { font-size: 11px; color: var(--gray-400); flex-shrink: 0; margin-top: 3px; transition: transform 0.2s; }
+.faq-chevron.open { transform: rotate(180deg); }
+.faq-answer {
+  display: none;
+  padding: 0 18px 16px 46px;
+  font-size: 14px; color: var(--gray-600); line-height: 1.65;
+  border-top: 1px solid var(--gray-200);
+  padding-top: 12px;
+}
+.faq-answer.open { display: block; animation: slideDown 0.2s ease; }
+
+/* ─── INFO SCREEN ─── */
+.info-body { flex: 1; padding: 20px 24px 100px; }
+.info-banner {
+  background: linear-gradient(135deg, var(--navy), var(--blue-mid));
+  border-radius: var(--r-lg);
+  padding: 24px;
+  margin-bottom: 20px;
+  position: relative; overflow: hidden;
+}
+.info-banner::after {
+  content: '';
+  position: absolute; top: -30px; right: -30px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+}
+.info-banner h2 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.info-banner p { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+
+.info-card {
+  background: var(--white);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.info-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.info-card-icon {
+  width: 38px; height: 38px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.info-card-title { font-size: 15px; font-weight: 600; color: var(--gray-800); }
+.info-card p { font-size: 14px; color: var(--gray-600); line-height: 1.65; }
+
+.rights-list { margin-top: 10px; }
+.right-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  margin-bottom: 10px; font-size: 14px; color: var(--gray-600); line-height: 1.5;
+}
+.right-check { color: var(--success); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+.hotline-box {
+  background: var(--navy);
+  border-radius: var(--r-md);
+  padding: 20px;
+  display: flex; align-items: center; gap: 16px;
+}
+.hotline-icon { font-size: 28px; }
+.hotline-num { font-size: 22px; font-weight: 700; color: #fff; }
+.hotline-sub { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="tablet-shell">
+
+<!-- ════════════════ HOME ════════════════ -->
+<div class="screen active" id="screen-home">
+  <div class="home-header">
+    <div class="home-logo">
+      <div class="logo-icon">🏛</div>
+      <div class="logo-text">Многофункциональный центр</div>
+    </div>
+    <div class="home-title">Мини-школа<br>МФЦ</div>
+    <div class="home-subtitle">Справочник услуг для жителей.<br>Просто, понятно, пошагово.</div>
+    <div class="home-stats">
+      <div class="stat-pill"><div class="stat-num">4</div><div class="stat-label">Услуги</div></div>
+      <div class="stat-pill"><div class="stat-num">7</div><div class="stat-label">Ответов FAQ</div></div>
+      <div class="stat-pill"><div class="stat-num">0 ₽</div><div class="stat-label">Консультация</div></div>
+    </div>
+  </div>
+
+  <div class="home-body">
+    <div class="section-label">Популярные услуги</div>
+    <div class="service-grid">
+      <div class="service-card" onclick="openService('passport')">
+        <div class="card-icon blue">🪪</div>
+        <div class="card-title">Паспорт гражданина РФ</div>
+        <div class="card-meta">5 шагов · 10–30 дней</div>
+        <div class="card-arrow">›</div>
+      </div>
+      <div class="service-card" onclick="openService('registration')">
+        <div class="card-icon amber">🏠</div>
+        <div class="card-title">Регистрация по месту жительства</div>
+        <div class="card-meta">4 шага · 3–7 дней</div>
+        <div class="card-arrow">›</div>
+      </div>
+      <div class="service-card" onclick="openService('benefits')">
+        <div class="card-icon green">📋</div>
+        <div class="card-title">Льготы и субсидии</div>
+        <div class="card-meta">5 шагов · до 10 дней</div>
+        <div class="card-arrow">›</div>
+      </div>
+      <div class="service-card" onclick="openService('egrn')">
+        <div class="card-icon navy">📄</div>
+        <div class="card-title">Выписка из ЕГРН</div>
+        <div class="card-meta">4 шага · 3–5 дней</div>
+        <div class="card-arrow">›</div>
+      </div>
+    </div>
+
+    <div class="section-label">Быстрые ответы</div>
+    <div class="quick-faq" onclick="goToFaq()"><div class="faq-dot"></div><div class="faq-text">Можно ли прийти без записи?</div><div class="faq-arr">›</div></div>
+    <div class="quick-faq" onclick="goToFaq()"><div class="faq-dot"></div><div class="faq-text">Как узнать, готов ли документ?</div><div class="faq-arr">›</div></div>
+    <div class="quick-faq" onclick="goToFaq()"><div class="faq-dot"></div><div class="faq-text">Платные ли услуги в МФЦ?</div><div class="faq-arr">›</div></div>
+  </div>
+</div>
+
+<!-- ════════════════ SERVICES ════════════════ -->
+<div class="screen" id="screen-services">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('home')">‹</button>
+    <div class="inner-title">Инструкции по услугам</div>
+  </div>
+  <div class="services-body">
+
+    <!-- Паспорт -->
+    <div class="service-row" id="svc-passport">
+      <div class="service-row-header" onclick="toggleService('passport-detail', this)">
+        <div class="srv-icon blue">🪪</div>
+        <div class="srv-info">
+          <div class="srv-name">Паспорт гражданина РФ</div>
+          <div class="srv-hint">Получение, замена, восстановление</div>
+        </div>
+        <span class="srv-toggle">▼</span>
+      </div>
+      <div class="service-detail" id="passport-detail">
+        <div class="steps-title">Пошаговая инструкция</div>
+        <div class="step-row"><div class="step-badge">1</div><div class="step-content">Запишитесь на приём через портал Госуслуги или по телефону МФЦ. Можно взять электронный талон на месте.</div></div>
+        <div class="step-row"><div class="step-badge">2</div><div class="step-content">Подготовьте документы и оплатите госпошлину — можно через терминал прямо в МФЦ.</div></div>
+        <div class="step-row"><div class="step-badge">3</div><div class="step-content">В назначенное время подойдите к специалисту, сдайте документы и сфотографируйтесь.</div></div>
+        <div class="step-row"><div class="step-badge">4</div><div class="step-content">Получите расписку с номером заявления — по нему можно следить за статусом онлайн.</div></div>
+        <div class="step-row"><div class="step-badge">5</div><div class="step-content">Заберите готовый паспорт в указанный срок, предъявив расписку специалисту.</div></div>
+        <div class="docs-block">
+          <div class="docs-head">📎 Необходимые документы</div>
+          <div class="doc-line">Старый паспорт (при замене)</div>
+          <div class="doc-line">Свидетельство о рождении</div>
+          <div class="doc-line">2 фотографии 35×45 мм (или сделают в МФЦ)</div>
+          <div class="doc-line">Квитанция об оплате госпошлины — 300 руб.</div>
+          <div class="doc-line">Документы об основании замены (брак, смена имени и др.)</div>
+        </div>
+        <div class="time-tag">⏱ Срок: 10 дней (по прописке) или 30 дней (не по прописке)</div>
+      </div>
+    </div>
+
+    <!-- Регистрация -->
+    <div class="service-row">
+      <div class="service-row-header" onclick="toggleService('reg-detail', this)">
+        <div class="srv-icon amber">🏠</div>
+        <div class="srv-info">
+          <div class="srv-name">Регистрация по месту жительства</div>
+          <div class="srv-hint">Прописка и снятие с учёта</div>
+        </div>
+        <span class="srv-toggle">▼</span>
+      </div>
+      <div class="service-detail" id="reg-detail">
+        <div class="steps-title">Пошаговая инструкция</div>
+        <div class="step-row"><div class="step-badge">1</div><div class="step-content">Получите согласие собственника жилья. Он должен прийти лично или выдать нотариальную доверенность.</div></div>
+        <div class="step-row"><div class="step-badge">2</div><div class="step-content">Запишитесь в МФЦ онлайн через Госуслуги или возьмите талон на месте.</div></div>
+        <div class="step-row"><div class="step-badge">3</div><div class="step-content">Подайте документы специалисту. Услуга полностью бесплатна — госпошлина не взимается.</div></div>
+        <div class="step-row"><div class="step-badge">4</div><div class="step-content">Получите штамп в паспорте или свидетельство о регистрации (для детей до 14 лет).</div></div>
+        <div class="docs-block">
+          <div class="docs-head">📎 Необходимые документы</div>
+          <div class="doc-line">Паспорт заявителя</div>
+          <div class="doc-line">Документ на жильё (свидетельство, выписка ЕГРН, договор найма)</div>
+          <div class="doc-line">Заявление по форме №6 — выдадут на месте</div>
+          <div class="doc-line">Листок убытия с прежнего места (при наличии)</div>
+        </div>
+        <div class="time-tag">⏱ Срок: 3–7 рабочих дней</div>
+      </div>
+    </div>
+
+    <!-- Льготы -->
+    <div class="service-row">
+      <div class="service-row-header" onclick="toggleService('ben-detail', this)">
+        <div class="srv-icon green">📋</div>
+        <div class="srv-info">
+          <div class="srv-name">Льготы и субсидии</div>
+          <div class="srv-hint">Коммунальные субсидии, льготы пенсионерам, многодетным</div>
+        </div>
+        <span class="srv-toggle">▼</span>
+      </div>
+      <div class="service-detail" id="ben-detail">
+        <div class="steps-title">Пошаговая инструкция</div>
+        <div class="step-row"><div class="step-badge">1</div><div class="step-content">Уточните, на какую льготу вы имеете право. Бесплатно проконсультируйтесь у специалиста МФЦ.</div></div>
+        <div class="step-row"><div class="step-badge">2</div><div class="step-content">Соберите пакет документов — список зависит от вида льготы.</div></div>
+        <div class="step-row"><div class="step-badge">3</div><div class="step-content">Подайте заявление через МФЦ. Специалист поможет заполнить форму.</div></div>
+        <div class="step-row"><div class="step-badge">4</div><div class="step-content">Дождитесь решения — вас уведомят по телефону или SMS.</div></div>
+        <div class="step-row"><div class="step-badge">5</div><div class="step-content">Субсидия начисляется на банковский счёт или карту МИР.</div></div>
+        <div class="docs-block">
+          <div class="docs-head">📎 Стандартный пакет документов</div>
+          <div class="doc-line">Паспорт и СНИЛС</div>
+          <div class="doc-line">Документ, подтверждающий право на льготу</div>
+          <div class="doc-line">Квитанции об оплате ЖКУ за 6 месяцев</div>
+          <div class="doc-line">Справка о доходах всех членов семьи</div>
+          <div class="doc-line">Реквизиты банковского счёта</div>
+        </div>
+        <div class="time-tag">⏱ Срок рассмотрения: до 10 рабочих дней</div>
+      </div>
+    </div>
+
+    <!-- ЕГРН -->
+    <div class="service-row">
+      <div class="service-row-header" onclick="toggleService('egrn-detail', this)">
+        <div class="srv-icon navy">📄</div>
+        <div class="srv-info">
+          <div class="srv-name">Выписка из ЕГРН</div>
+          <div class="srv-hint">Сведения о правах на недвижимость</div>
+        </div>
+        <span class="srv-toggle">▼</span>
+      </div>
+      <div class="service-detail" id="egrn-detail">
+        <div class="steps-title">Пошаговая инструкция</div>
+        <div class="step-row"><div class="step-badge">1</div><div class="step-content">Обратитесь в МФЦ или закажите онлайн через Госуслуги или сайт Росреестра.</div></div>
+        <div class="step-row"><div class="step-badge">2</div><div class="step-content">Укажите объект недвижимости — адрес или кадастровый номер.</div></div>
+        <div class="step-row"><div class="step-badge">3</div><div class="step-content">Оплатите госпошлину: 460 руб. (бумажная) или 290 руб. (электронная).</div></div>
+        <div class="step-row"><div class="step-badge">4</div><div class="step-content">Получите выписку в МФЦ или на электронную почту.</div></div>
+        <div class="docs-block">
+          <div class="docs-head">📎 Необходимые документы</div>
+          <div class="doc-line">Паспорт заявителя</div>
+          <div class="doc-line">Адрес или кадастровый номер объекта</div>
+          <div class="doc-line">Квитанция об оплате госпошлины</div>
+        </div>
+        <div class="time-tag">⏱ Срок готовности: 3–5 рабочих дней</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════ FAQ ════════════════ -->
+<div class="screen" id="screen-faq">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('home')">‹</button>
+    <div class="inner-title">Часто задаваемые вопросы</div>
+  </div>
+  <div class="faq-body">
+
+    <div class="faq-category">
+      <div class="faq-cat-label">Приём и запись</div>
+
+      <div class="faq-card">
+        <div class="faq-question" onclick="toggleFaq('faq1', this)">
+          <span class="faq-q-icon">📅</span>
+          <span class="faq-q-text">Можно ли прийти в МФЦ без записи?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer" id="faq1">Да, большинство МФЦ принимают и по записи, и по живой очереди через электронный талон. Однако с предварительной записью ожидание значительно меньше. Записаться можно через портал Госуслуги, официальный сайт МФЦ или по телефону.</div>
+      </div>
+
+      <div class="faq-card">
+        <div class="faq-question" onclick="toggleFaq('faq2', this)">
+          <span class="faq-q-icon">📝</span>
+          <span class="faq-q-text">Что делать, если не знаю, какие документы нужны?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer" id="faq2">Не беспокойтесь — специалист МФЦ бесплатно проконсультирует вас. Можно позвонить заранее по телефону горячей линии или подойти на стойку консультации. Также полный список документов по каждой услуге есть на портале Госуслуги.</div>
+      </div>
+
+      <div class="faq-card">
+        <div class="faq-question" onclick="toggleFaq('faq3', this)">
+          <span class="faq-q-icon">⏳</span>
+          <span class="faq-q-text">Сколько времени занимает приём у специалиста?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer" id="faq3">Непосредственный приём документов обычно занимает 10–20 минут. Само изготовление документа — от 3 до 30 дней в зависимости от вида услуги. Точные сроки указаны в каждой инструкции.</div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <div class="faq-cat-label">Документы и оплата</div>
+
+      <div class="faq-card">
+        <div class="faq-question" onclick="toggleFaq('faq4', this)">
+          <span class="faq-q-icon">💰</span>
+          <span class="faq-q-text">Платные ли услуги в МФЦ?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer" id="faq4">Само оформление документов в МФЦ бесплатно. Вы оплачиваете только государственную пошлину, если она предусмотрена законом. Никаких дополнительных сборов МФЦ не взимает.</div>
+      </div>
+
+      <div class="faq-card">
+        <div class="faq-question" onclick="toggleFaq('faq5', this)">
+          <span class="faq-q-icon">👥</span>
+          <span class="faq-q-text">Можно ли оформить услугу за другого человека?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer" id="faq5">Да, для этого нужна нотариально заверенная доверенность. Исключение — законные представители несовершеннолетних детей (родители, опекуны): им достаточно паспорта и свидетельства о рождении ребёнка.</div>
+      </div>
+
+      <div class="faq-card">
+        <div class="faq-question" onclick="toggleFaq('faq6', this)">
+          <span class="faq-q-icon">🔍</span>
+          <span class="faq-q-text">Как узнать, готов ли мой документ?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer" id="faq6">По номеру расписки, которую вам выдали при подаче, можно отслеживать статус на сайте МФЦ или через SMS-уведомление. Также можно позвонить в МФЦ и назвать номер заявления.</div>
+      </div>
+
+      <div class="faq-card">
+        <div class="faq-question" onclick="toggleFaq('faq7', this)">
+          <span class="faq-q-icon">🚫</span>
+          <span class="faq-q-text">Что делать, если отказали в услуге?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer" id="faq7">Специалист обязан выдать письменный отказ с указанием причины. Если вы считаете отказ неправомерным, обратитесь с жалобой на сайте do.gosuslugi.ru, по телефону 8-800-775-00-10 (бесплатно) или через руководство МФЦ.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════ INFO ════════════════ -->
+<div class="screen" id="screen-info">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('home')">‹</button>
+    <div class="inner-title">Важно знать</div>
+  </div>
+  <div class="info-body">
+
+    <div class="info-banner">
+      <h2>Принцип «одного окна»</h2>
+      <p>В МФЦ вы обращаетесь к одному специалисту — он принимает документы и сам передаёт их в нужное ведомство. Вам не нужно ходить по разным организациям.</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head">
+        <div class="info-card-icon" style="background:var(--sky)">💻</div>
+        <div class="info-card-title">Госуслуги ускоряют процесс</div>
+      </div>
+      <p>Если у вас есть подтверждённая учётная запись на gosuslugi.ru, многие услуги можно заказать онлайн — часть документов подгружается автоматически, а срок нередко сокращается.</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head">
+        <div class="info-card-icon" style="background:var(--success-light)">✅</div>
+        <div class="info-card-title">Ваши права как заявителя</div>
+      </div>
+      <div class="rights-list">
+        <div class="right-item"><span class="right-check">✓</span> Получить бесплатную консультацию в любое время</div>
+        <div class="right-item"><span class="right-check">✓</span> Требовать письменный отказ с обоснованием</div>
+        <div class="right-item"><span class="right-check">✓</span> Обжаловать любое решение специалиста</div>
+        <div class="right-item"><span class="right-check">✓</span> Не платить за само оформление (только госпошлина)</div>
+        <div class="right-item"><span class="right-check">✓</span> Отслеживать статус своего заявления онлайн</div>
+      </div>
+    </div>
+
+    <div class="hotline-box">
+      <div class="hotline-icon">📞</div>
+      <div>
+        <div class="hotline-num">8-800-775-00-10</div>
+        <div class="hotline-sub">Единая горячая линия МФЦ · звонок бесплатный</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════ BOTTOM NAV ════════════════ -->
+<nav class="bottom-nav" id="bottom-nav">
+  <div class="nav-item active" id="nav-home" onclick="showScreen('home')">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">Главная</span>
+    <div class="nav-dot"></div>
+  </div>
+  <div class="nav-item" id="nav-services" onclick="showScreen('services')">
+    <span class="nav-icon">📋</span>
+    <span class="nav-label">Инструкции</span>
+    <div class="nav-dot"></div>
+  </div>
+  <div class="nav-item" id="nav-faq" onclick="showScreen('faq')">
+    <span class="nav-icon">❓</span>
+    <span class="nav-label">FAQ</span>
+    <div class="nav-dot"></div>
+  </div>
+  <div class="nav-item" id="nav-info" onclick="showScreen('info')">
+    <span class="nav-icon">ℹ️</span>
+    <span class="nav-label">Важно знать</span>
+    <div class="nav-dot"></div>
+  </div>
+</nav>
+
+</div><!-- /tablet-shell -->
+
+<script>
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function openService(id) {
+  showScreen('services');
+  setTimeout(() => {
+    const el = document.getElementById('svc-' + id);
+    if (el) {
+      const header = el.querySelector('.service-row-header');
+      const detail = el.querySelector('.service-detail');
+      const toggle = header.querySelector('.srv-toggle');
+      detail.classList.add('open');
+      toggle.classList.add('open');
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 100);
+}
+
+function goToFaq() { showScreen('faq'); }
+
+function toggleService(detailId, headerEl) {
+  const detail = document.getElementById(detailId);
+  const toggle = headerEl.querySelector('.srv-toggle');
+  const isOpen = detail.classList.contains('open');
+  document.querySelectorAll('.service-detail').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.srv-toggle').forEach(t => t.classList.remove('open'));
+  if (!isOpen) { detail.classList.add('open'); toggle.classList.add('open'); }
+}
+
+function toggleFaq(id, qEl) {
+  const answer = document.getElementById(id);
+  const chevron = qEl.querySelector('.faq-chevron');
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-chevron').forEach(c => c.classList.remove('open'));
+  if (!isOpen) { answer.classList.add('open'); chevron.classList.add('open'); }
+}
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(r => console.log('SW registered:', r.scope))
+      .catch(e => console.log('SW error:', e));
+  });
+}
+</script>
+</body>
+</html>
