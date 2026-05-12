@@ -2,18 +2,8 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=800, initial-scale=1.0">
 <title>Мини-школа МФЦ</title>
-
-<!-- PWA -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0D2E6E">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="МФЦ">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -412,6 +402,134 @@ html, body {
 .hotline-icon { font-size: 28px; }
 .hotline-num { font-size: 22px; font-weight: 700; color: #fff; }
 .hotline-sub { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+/* ─── APPOINTMENT SCREEN ─── */
+.appt-body { flex: 1; padding: 20px 24px 100px; }
+.appt-intro {
+  background: linear-gradient(135deg, var(--navy), var(--blue-mid));
+  border-radius: var(--r-lg);
+  padding: 22px;
+  margin-bottom: 24px;
+  color: #fff;
+}
+.appt-intro h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.appt-intro p { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.55; }
+.appt-method-label {
+  font-size: 11px; font-weight: 600; color: var(--gray-400);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;
+}
+.appt-card {
+  background: var(--white);
+  border-radius: var(--r-md);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 16px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  border: 1.5px solid transparent;
+  text-decoration: none;
+}
+.appt-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--sky-dark); }
+.appt-card-icon {
+  width: 48px; height: 48px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+}
+.appt-card-info { flex: 1; }
+.appt-card-title { font-size: 15px; font-weight: 600; color: var(--gray-800); margin-bottom: 4px; }
+.appt-card-desc { font-size: 12px; color: var(--gray-400); line-height: 1.4; }
+.appt-card-arr { font-size: 18px; color: var(--gray-400); }
+.appt-note {
+  background: var(--accent-light);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  margin-top: 20px;
+  font-size: 13px; color: var(--gray-600); line-height: 1.55;
+  border-left: 3px solid var(--accent);
+}
+
+/* ─── CALCULATOR SCREEN ─── */
+.calc-body { flex: 1; padding: 20px 24px 100px; }
+.calc-intro {
+  background: linear-gradient(135deg, #1A5C3A, var(--success));
+  border-radius: var(--r-lg);
+  padding: 22px;
+  margin-bottom: 24px;
+  color: #fff;
+}
+.calc-intro h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.calc-intro p { font-size: 13px; color: rgba(255,255,255,0.78); line-height: 1.55; }
+.calc-card {
+  background: var(--white);
+  border-radius: var(--r-md);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+}
+.calc-label { font-size: 13px; font-weight: 600; color: var(--gray-600); margin-bottom: 10px; }
+.calc-select {
+  width: 100%; padding: 12px 16px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--r-sm);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; color: var(--gray-800);
+  background: var(--gray-100); cursor: pointer;
+  outline: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238FA3C8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+.calc-select:focus { border-color: var(--blue); }
+.calc-toggle-row {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: var(--sky);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+.calc-toggle-label { font-size: 13px; color: var(--gray-600); flex: 1; line-height: 1.4; }
+.toggle-switch {
+  width: 42px; height: 24px; border-radius: 12px;
+  background: var(--gray-200); position: relative;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.toggle-switch.on { background: var(--blue); }
+.toggle-knob {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; position: absolute; top: 3px; left: 3px;
+  transition: left 0.2s;
+}
+.toggle-switch.on .toggle-knob { left: 21px; }
+.calc-result {
+  background: var(--navy);
+  border-radius: var(--r-md);
+  padding: 22px;
+  text-align: center;
+  margin-top: 0;
+}
+.calc-result-label { font-size: 12px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.calc-result-amount { font-size: 38px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.calc-result-sub { font-size: 13px; color: rgba(255,255,255,0.65); }
+.calc-free { color: var(--success); font-size: 32px; font-weight: 700; }
+.calc-breakdown {
+  background: var(--gray-100);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  margin-top: 14px;
+}
+.calc-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; color: var(--gray-600);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+.calc-row:last-child { border-bottom: none; }
+.calc-row-label { flex: 1; }
+.calc-row-val { font-weight: 600; color: var(--gray-800); }
+.calc-row-val.free { color: var(--success); }
 </style>
 </head>
 <body>
@@ -428,7 +546,7 @@ html, body {
     <div class="home-title">Мини-школа<br>МФЦ</div>
     <div class="home-subtitle">Справочник услуг для жителей.<br>Просто, понятно, пошагово.</div>
     <div class="home-stats">
-      <div class="stat-pill"><div class="stat-num">4</div><div class="stat-label">Услуги</div></div>
+      <div class="stat-pill"><div class="stat-num">9</div><div class="stat-label">Услуги</div></div>
       <div class="stat-pill"><div class="stat-num">7</div><div class="stat-label">Ответов FAQ</div></div>
       <div class="stat-pill"><div class="stat-num">0 ₽</div><div class="stat-label">Консультация</div></div>
     </div>
@@ -436,7 +554,13 @@ html, body {
 
   <div class="home-body">
     <div class="section-label">Популярные услуги</div>
-    <div class="service-grid">
+    <div class="service-grid" style="grid-template-columns:1fr 1fr;margin-bottom:28px">
+      <div class="service-card" onclick="openService('gosuslugi')">
+        <div class="card-icon blue">🌐</div>
+        <div class="card-title">Подтверждение учётной записи Госуслуг</div>
+        <div class="card-meta">2 способа · от 15 мин</div>
+        <div class="card-arrow">›</div>
+      </div>
       <div class="service-card" onclick="openService('passport')">
         <div class="card-icon blue">🪪</div>
         <div class="card-title">Паспорт гражданина РФ</div>
@@ -462,6 +586,31 @@ html, body {
         <div class="card-arrow">›</div>
       </div>
     </div>
+
+    <div class="section-label">Новые возможности</div>
+    <div class="service-grid" style="margin-bottom:28px">
+      <div class="service-card" onclick="showScreen('appointment')" style="background:linear-gradient(135deg,#0D2E6E,#1A56C4);border:none">
+        <div class="card-icon blue" style="background:rgba(255,255,255,0.18)">📅</div>
+        <div class="card-title" style="color:#fff">Записаться на приём</div>
+        <div class="card-meta" style="color:rgba(255,255,255,0.65)">Онлайн, телефон, МАХ</div>
+        <div class="card-arrow" style="background:rgba(255,255,255,0.2);color:#fff">›</div>
+      </div>
+      <div class="service-card" onclick="showScreen('calc')">
+        <div class="card-icon amber">🧮</div>
+        <div class="card-title">Калькулятор госпошлины</div>
+        <div class="card-meta">Узнайте сумму заранее</div>
+        <div class="card-arrow">›</div>
+      </div>
+    </div>
+
+    <a href="https://max.ru/mfc_dnr_max_bot" target="_blank" style="display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#0D2E6E,#2D6FE8);border-radius:var(--r-md);padding:18px 20px;margin-bottom:28px;text-decoration:none;box-shadow:var(--shadow-md)">
+      <div style="width:46px;height:46px;border-radius:var(--r-sm);background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">💬</div>
+      <div style="flex:1">
+        <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:3px">Чат-бот МФЦ в МАХ</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7)">Персональный ассистент · запись, статус заявки, вопросы</div>
+      </div>
+      <div style="font-size:20px;color:rgba(255,255,255,0.7)">›</div>
+    </a>
 
     <div class="section-label">Быстрые ответы</div>
     <div class="quick-faq" onclick="goToFaq()"><div class="faq-dot"></div><div class="faq-text">Можно ли прийти без записи?</div><div class="faq-arr">›</div></div>
@@ -586,6 +735,158 @@ html, body {
           <div class="doc-line">Квитанция об оплате госпошлины</div>
         </div>
         <div class="time-tag">⏱ Срок готовности: 3–5 рабочих дней</div>
+      </div>
+    </div>
+
+    <!-- Госуслуги подтверждение -->
+    <div class="service-row" id="svc-gosuslugi">
+      <div class="service-row-header" onclick="toggleService('gosuslugi-detail', this)">
+        <div class="srv-icon blue">🌐</div>
+        <div class="srv-info">
+          <div class="srv-name">Подтверждение учётной записи Госуслуг</div>
+          <div class="srv-hint">Через МФЦ или онлайн-банк</div>
+        </div>
+        <span class="srv-toggle">▼</span>
+      </div>
+      <div class="service-detail" id="gosuslugi-detail">
+
+        <div class="steps-title">Способ 1 — Через МФЦ (рекомендуется)</div>
+        <div class="step-row"><div class="step-badge">1</div><div class="step-content">Зарегистрируйтесь на Госуслугах по номеру телефона или email, если ещё не сделали этого.</div></div>
+        <div class="step-row"><div class="step-badge">2</div><div class="step-content">Придите в МФЦ с паспортом и СНИЛС. Запись необязательна — можно взять талон на месте или записаться через чат-бот МФЦ.</div></div>
+        <div class="step-row"><div class="step-badge">3</div><div class="step-content">Предъявите документы сотруднику и скажите, что хотите подтвердить учётную запись на Госуслугах. Назовите телефон или email, с которыми регистрировались.</div></div>
+        <div class="step-row"><div class="step-badge">4</div><div class="step-content">Сотрудник внесёт ваши данные в систему и отправит на ваш телефон код подтверждения.</div></div>
+        <div class="step-row"><div class="step-badge">5</div><div class="step-content">Войдите на Госуслуги и введите полученный код. Запустится автоматическая проверка данных в ведомствах — обычно от 15 минут до 5 дней.</div></div>
+        <div class="docs-block">
+          <div class="docs-head">📎 Что взять с собой</div>
+          <div class="doc-line">Паспорт гражданина РФ</div>
+          <div class="doc-line">СНИЛС</div>
+          <div class="doc-line">Телефон или email, указанные при регистрации на Госуслугах</div>
+        </div>
+        <a href="https://max.ru/mfc_dnr_max_bot" target="_blank" style="display:flex;align-items:center;gap:10px;margin-top:12px;background:#0D2E6E;border-radius:10px;padding:12px 16px;text-decoration:none">
+          <span style="font-size:18px">💬</span>
+          <span style="font-size:13px;color:#fff;font-weight:600">Записаться через чат-бот МФЦ в МАХ</span>
+          <span style="margin-left:auto;color:rgba(255,255,255,0.6);font-size:16px">›</span>
+        </a>
+
+        <div class="steps-title" style="margin-top:20px">Способ 2 — Через онлайн-банк (быстро, без визита)</div>
+        <div class="step-row"><div class="step-badge">1</div><div class="step-content">Убедитесь, что ФИО, номер телефона и СНИЛС в личном кабинете банка совпадают с данными на Госуслугах. Если нет — обновите через службу поддержки банка.</div></div>
+        <div class="step-row"><div class="step-badge">2</div><div class="step-content">Войдите в мобильное приложение или сайт вашего банка и найдите раздел «Госуслуги» или «Подтверждение личности».</div></div>
+        <div class="step-row"><div class="step-badge">3</div><div class="step-content">Следуйте инструкции банка — подтверждение обычно занимает несколько минут.</div></div>
+        <div class="docs-block">
+          <div class="docs-head">🏦 Банки, поддерживающие подтверждение</div>
+          <div class="doc-line">Сбербанк, ВТБ, Альфа-Банк, Тинькофф Банк</div>
+          <div class="doc-line">Почта Банк, РНКБ, Промсвязьбанк, МТС Банк</div>
+          <div class="doc-line">Россельхозбанк, Ак Барс Банк, Банк «Санкт-Петербург»</div>
+          <div class="doc-line">ФК «Открытие», Делобанк, Банк Синара, Банк Авангард, Газэнергобанк</div>
+        </div>
+        <div class="time-tag">⏱ Проверка данных: от 15 минут до 5 дней</div>
+      </div>
+    </div>
+
+    <!-- СНИЛС -->
+    <div class="service-row" id="svc-snils">
+      <div class="service-row-header" onclick="toggleService('snils-detail', this)">
+        <div class="srv-icon blue">🪪</div>
+        <div class="srv-info">
+          <div class="srv-name">СНИЛС</div>
+          <div class="srv-hint">Первичное получение и замена</div>
+        </div>
+        <span class="srv-toggle">▼</span>
+      </div>
+      <div class="service-detail" id="snils-detail">
+        <div class="steps-title">Пошаговая инструкция</div>
+        <div class="step-row"><div class="step-badge">1</div><div class="step-content">Обратитесь в МФЦ лично — запись необязательна, можно взять талон на месте.</div></div>
+        <div class="step-row"><div class="step-badge">2</div><div class="step-content">Заполните анкету (АДВ-1) — специалист поможет на месте.</div></div>
+        <div class="step-row"><div class="step-badge">3</div><div class="step-content">Сдайте документы специалисту. Услуга полностью бесплатна.</div></div>
+        <div class="step-row"><div class="step-badge">4</div><div class="step-content">Получите уведомление о регистрации (сам СНИЛС теперь — электронный, выдаётся справка АДИ-РЕГ).</div></div>
+        <div class="docs-block">
+          <div class="docs-head">📎 Необходимые документы</div>
+          <div class="doc-line">Паспорт гражданина РФ</div>
+          <div class="doc-line">Для детей до 14 лет — свидетельство о рождении + паспорт родителя</div>
+          <div class="doc-line">При замене — старый СНИЛС (при наличии)</div>
+        </div>
+        <div class="time-tag">⏱ Срок: до 5 рабочих дней</div>
+      </div>
+    </div>
+
+    <!-- ИНН -->
+    <div class="service-row" id="svc-inn">
+      <div class="service-row-header" onclick="toggleService('inn-detail', this)">
+        <div class="srv-icon amber">🔢</div>
+        <div class="srv-info">
+          <div class="srv-name">ИНН физического лица</div>
+          <div class="srv-hint">Первичное получение и дубликат</div>
+        </div>
+        <span class="srv-toggle">▼</span>
+      </div>
+      <div class="service-detail" id="inn-detail">
+        <div class="steps-title">Пошаговая инструкция</div>
+        <div class="step-row"><div class="step-badge">1</div><div class="step-content">Обратитесь в МФЦ или подайте заявление через портал Госуслуги онлайн.</div></div>
+        <div class="step-row"><div class="step-badge">2</div><div class="step-content">Заполните заявление по форме №2-2-Учёт — специалист выдаст бланк на месте.</div></div>
+        <div class="step-row"><div class="step-badge">3</div><div class="step-content">Сдайте документы. Услуга бесплатна при первичном получении.</div></div>
+        <div class="step-row"><div class="step-badge">4</div><div class="step-content">Заберите свидетельство ИНН в МФЦ в указанный срок.</div></div>
+        <div class="docs-block">
+          <div class="docs-head">📎 Необходимые документы</div>
+          <div class="doc-line">Паспорт гражданина РФ (оригинал и копия)</div>
+          <div class="doc-line">Документ о регистрации по месту жительства (если нет в паспорте)</div>
+          <div class="doc-line">При получении дубликата — заявление + госпошлина 300 руб.</div>
+        </div>
+        <div class="time-tag">⏱ Срок: до 5 рабочих дней</div>
+      </div>
+    </div>
+
+    <!-- Маткапитал -->
+    <div class="service-row" id="svc-matcap">
+      <div class="service-row-header" onclick="toggleService('matcap-detail', this)">
+        <div class="srv-icon green">👶</div>
+        <div class="srv-info">
+          <div class="srv-name">Материнский капитал</div>
+          <div class="srv-hint">Оформление сертификата и распоряжение</div>
+        </div>
+        <span class="srv-toggle">▼</span>
+      </div>
+      <div class="service-detail" id="matcap-detail">
+        <div class="steps-title">Пошаговая инструкция</div>
+        <div class="step-row"><div class="step-badge">1</div><div class="step-content">Обратитесь в МФЦ или Социальный фонд РФ. Сертификат оформляется автоматически при рождении ребёнка — проверьте наличие в Госуслугах.</div></div>
+        <div class="step-row"><div class="step-badge">2</div><div class="step-content">Если сертификат не оформлен — подайте заявление через МФЦ с пакетом документов.</div></div>
+        <div class="step-row"><div class="step-badge">3</div><div class="step-content">Для распоряжения средствами подайте отдельное заявление с указанием цели: жильё, образование, пенсия матери, реабилитация ребёнка.</div></div>
+        <div class="step-row"><div class="step-badge">4</div><div class="step-content">Дождитесь решения Социального фонда — средства перечисляются напрямую на счёт организации (банк, вуз и т.д.).</div></div>
+        <div class="docs-block">
+          <div class="docs-head">📎 Необходимые документы</div>
+          <div class="doc-line">Паспорт матери (или отца в особых случаях)</div>
+          <div class="doc-line">СНИЛС заявителя</div>
+          <div class="doc-line">Свидетельства о рождении всех детей</div>
+          <div class="doc-line">Документы по цели использования (договор купли-продажи, кредитный договор и др.)</div>
+        </div>
+        <div class="time-tag">⏱ Срок решения: до 10 рабочих дней</div>
+      </div>
+    </div>
+
+    <!-- Загранпаспорт -->
+    <div class="service-row" id="svc-zagran">
+      <div class="service-row-header" onclick="toggleService('zagran-detail', this)">
+        <div class="srv-icon navy">✈️</div>
+        <div class="srv-info">
+          <div class="srv-name">Загранпаспорт</div>
+          <div class="srv-hint">Новый и старого образца</div>
+        </div>
+        <span class="srv-toggle">▼</span>
+      </div>
+      <div class="service-detail" id="zagran-detail">
+        <div class="steps-title">Пошаговая инструкция</div>
+        <div class="step-row"><div class="step-badge">1</div><div class="step-content">Запишитесь на приём через Госуслуги — это значительно ускоряет процесс и снижает госпошлину.</div></div>
+        <div class="step-row"><div class="step-badge">2</div><div class="step-content">Подготовьте документы и оплатите госпошлину: 6000 руб. (биометрический, 10 лет) или 2000 руб. (старый образец, 5 лет). Через Госуслуги — скидка 30%.</div></div>
+        <div class="step-row"><div class="step-badge">3</div><div class="step-content">Придите в МФЦ, сдайте документы и сделайте биометрию (фото + отпечатки пальцев).</div></div>
+        <div class="step-row"><div class="step-badge">4</div><div class="step-content">Получите паспорт в МФЦ по уведомлению. Дети до 12 лет — без дактилоскопии.</div></div>
+        <div class="docs-block">
+          <div class="docs-head">📎 Необходимые документы</div>
+          <div class="doc-line">Паспорт гражданина РФ</div>
+          <div class="doc-line">Действующий загранпаспорт (при наличии, для продления)</div>
+          <div class="doc-line">Квитанция об оплате госпошлины</div>
+          <div class="doc-line">Фото 35×45 мм — 2 шт. (только для паспорта старого образца)</div>
+          <div class="doc-line">Для детей — свидетельство о рождении + паспорт родителя</div>
+        </div>
+        <div class="time-tag">⏱ Срок: 30 дней (по месту жительства) или до 3 месяцев</div>
       </div>
     </div>
 
@@ -720,6 +1021,121 @@ html, body {
   </div>
 </div>
 
+<!-- ════════════════ APPOINTMENT ════════════════ -->
+<div class="screen" id="screen-appointment">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('home')">‹</button>
+    <div class="inner-title">Записаться на приём</div>
+  </div>
+  <div class="appt-body">
+
+    <div class="appt-intro">
+      <h2>📅 Выберите удобный способ</h2>
+      <p>Запись сокращает время ожидания. Без записи тоже принимают — по электронному талону на месте.</p>
+    </div>
+
+    <div class="appt-method-label">Онлайн</div>
+
+    <a class="appt-card" href="https://www.gosuslugi.ru" target="_blank">
+      <div class="appt-card-icon" style="background:#E8F0FD">🌐</div>
+      <div class="appt-card-info">
+        <div class="appt-card-title">Портал Госуслуги</div>
+        <div class="appt-card-desc">gosuslugi.ru · нужна подтверждённая учётная запись · доступно 24/7</div>
+      </div>
+      <div class="appt-card-arr">›</div>
+    </a>
+
+    <div class="appt-method-label" style="margin-top:20px">Через мессенджер</div>
+
+    <a class="appt-card" href="https://max.ru/mfc_dnr_max_bot" target="_blank" style="border-color:#0D2E6E;background:linear-gradient(135deg,rgba(13,46,110,0.04),rgba(26,86,196,0.06))">
+      <div class="appt-card-icon" style="background:#0D2E6E">💬</div>
+      <div class="appt-card-info">
+        <div class="appt-card-title" style="color:var(--navy)">Чат-бот МФЦ в МАХ</div>
+        <div class="appt-card-desc">max.ru/mfc_dnr_max_bot · Инновация 1 «Персональный ассистент» · запись, статус заявки, консультация</div>
+      </div>
+      <div class="appt-card-arr">›</div>
+    </a>
+
+    <div class="appt-method-label" style="margin-top:20px">По телефону</div>
+
+    <a class="appt-card" href="tel:88007750010">
+      <div class="appt-card-icon" style="background:#FEF3DC">📞</div>
+      <div class="appt-card-info">
+        <div class="appt-card-title">Единая горячая линия МФЦ</div>
+        <div class="appt-card-desc">8-800-775-00-10 · звонок бесплатный · пн–пт 8:00–20:00</div>
+      </div>
+      <div class="appt-card-arr">›</div>
+    </a>
+
+    <a class="appt-card" href="tel:88005503511">
+      <div class="appt-card-icon" style="background:#EEF1F8">🏛</div>
+      <div class="appt-card-info">
+        <div class="appt-card-title">МФЦ г. Мариуполя</div>
+        <div class="appt-card-desc">8-800-550-35-11 · пн–пт 8:00–20:00, сб 9:00–16:00</div>
+      </div>
+      <div class="appt-card-arr">›</div>
+    </a>
+
+    <div class="appt-note">
+      💡 <strong>Совет:</strong> Запись через Госуслуги даёт скидку 30% на госпошлину для ряда услуг (загранпаспорт, паспорт РФ). Без записи принимают по живой электронной очереди — талон берут на месте в терминале.
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════ CALCULATOR ════════════════ -->
+<div class="screen" id="screen-calc">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('home')">‹</button>
+    <div class="inner-title">Калькулятор госпошлины</div>
+  </div>
+  <div class="calc-body">
+
+    <div class="calc-intro">
+      <h2>🧮 Узнайте стоимость заранее</h2>
+      <p>Выберите услугу — калькулятор покажет размер госпошлины. Через Госуслуги многие пошлины дешевле на 30%.</p>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-label">Выберите услугу</div>
+      <select class="calc-select" id="calc-service" onchange="calcUpdate()">
+        <option value="">— выберите услугу —</option>
+        <option value="passport_new">Паспорт РФ (14 лет / замена)</option>
+        <option value="passport_lost">Паспорт РФ (утеря / порча)</option>
+        <option value="zagran_bio">Загранпаспорт биометрический (10 лет)</option>
+        <option value="zagran_old">Загранпаспорт старого образца (5 лет)</option>
+        <option value="zagran_child">Загранпаспорт для ребёнка до 14 лет</option>
+        <option value="inn_dup">ИНН — дубликат свидетельства</option>
+        <option value="egrn_paper">Выписка из ЕГРН (бумажная)</option>
+        <option value="egrn_elec">Выписка из ЕГРН (электронная)</option>
+        <option value="marriage">Регистрация брака</option>
+        <option value="divorce">Расторжение брака</option>
+        <option value="birth">Свидетельство о рождении (повторное)</option>
+        <option value="realty_reg">Регистрация права на недвижимость (физлицо)</option>
+      </select>
+
+      <div class="calc-toggle-row" onclick="toggleGosuslugi()" id="gosuslugi-toggle" style="display:none">
+        <div class="calc-toggle-label">Подаю через Госуслуги<br><span style="font-size:11px;color:var(--blue)">скидка 30% для поддерживаемых услуг</span></div>
+        <div class="toggle-switch" id="toggle-sw"><div class="toggle-knob"></div></div>
+      </div>
+    </div>
+
+    <div id="calc-result-block" style="display:none">
+      <div class="calc-result">
+        <div class="calc-result-label">Госпошлина к оплате</div>
+        <div id="calc-amount" class="calc-result-amount">—</div>
+        <div id="calc-sub" class="calc-result-sub"></div>
+      </div>
+      <div class="calc-breakdown" id="calc-breakdown"></div>
+    </div>
+
+    <div id="calc-empty" style="text-align:center;padding:40px 20px;color:var(--gray-400);font-size:14px">
+      Выберите услугу выше, чтобы узнать стоимость
+    </div>
+
+  </div>
+</div>
+
 <!-- ════════════════ BOTTOM NAV ════════════════ -->
 <nav class="bottom-nav" id="bottom-nav">
   <div class="nav-item active" id="nav-home" onclick="showScreen('home')">
@@ -729,7 +1145,17 @@ html, body {
   </div>
   <div class="nav-item" id="nav-services" onclick="showScreen('services')">
     <span class="nav-icon">📋</span>
-    <span class="nav-label">Инструкции</span>
+    <span class="nav-label">Услуги</span>
+    <div class="nav-dot"></div>
+  </div>
+  <div class="nav-item" id="nav-appointment" onclick="showScreen('appointment')">
+    <span class="nav-icon">📅</span>
+    <span class="nav-label">Запись</span>
+    <div class="nav-dot"></div>
+  </div>
+  <div class="nav-item" id="nav-calc" onclick="showScreen('calc')">
+    <span class="nav-icon">🧮</span>
+    <span class="nav-label">Пошлина</span>
     <div class="nav-dot"></div>
   </div>
   <div class="nav-item" id="nav-faq" onclick="showScreen('faq')">
@@ -739,7 +1165,7 @@ html, body {
   </div>
   <div class="nav-item" id="nav-info" onclick="showScreen('info')">
     <span class="nav-icon">ℹ️</span>
-    <span class="nav-label">Важно знать</span>
+    <span class="nav-label">Важно</span>
     <div class="nav-dot"></div>
   </div>
 </nav>
@@ -751,7 +1177,8 @@ function showScreen(name) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('screen-' + name).classList.add('active');
-  document.getElementById('nav-' + name).classList.add('active');
+  const navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
   window.scrollTo(0, 0);
 }
 
@@ -789,15 +1216,70 @@ function toggleFaq(id, qEl) {
   document.querySelectorAll('.faq-chevron').forEach(c => c.classList.remove('open'));
   if (!isOpen) { answer.classList.add('open'); chevron.classList.add('open'); }
 }
-</script>
 
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(r => console.log('SW registered:', r.scope))
-      .catch(e => console.log('SW error:', e));
-  });
+/* ── CALCULATOR ── */
+const FEES = {
+  passport_new:  { base: 300,  gosDiscount: true,  name: 'Паспорт РФ (14 лет / замена)',         note: 'Бесплатно для детей до 14 лет' },
+  passport_lost: { base: 1500, gosDiscount: false, name: 'Паспорт РФ (утеря / порча)',            note: 'Скидка через Госуслуги не применяется' },
+  zagran_bio:    { base: 6000, gosDiscount: true,  name: 'Загранпаспорт биометрический (10 лет)', note: 'Самая популярная услуга' },
+  zagran_old:    { base: 2000, gosDiscount: true,  name: 'Загранпаспорт старого образца (5 лет)', note: '' },
+  zagran_child:  { base: 1500, gosDiscount: true,  name: 'Загранпаспорт для ребёнка до 14 лет',  note: '' },
+  inn_dup:       { base: 300,  gosDiscount: false, name: 'ИНН — дубликат свидетельства',          note: 'Первичное получение бесплатно' },
+  egrn_paper:    { base: 460,  gosDiscount: false, name: 'Выписка из ЕГРН (бумажная)',            note: '' },
+  egrn_elec:     { base: 290,  gosDiscount: false, name: 'Выписка из ЕГРН (электронная)',         note: 'Дешевле и быстрее' },
+  marriage:      { base: 350,  gosDiscount: false, name: 'Регистрация брака',                     note: 'Пошлина на двоих' },
+  divorce:       { base: 650,  gosDiscount: false, name: 'Расторжение брака',                     note: 'Пошлина с каждого супруга' },
+  birth:         { base: 350,  gosDiscount: false, name: 'Свидетельство о рождении (повторное)',  note: 'Первичное — бесплатно' },
+  realty_reg:    { base: 2000, gosDiscount: false, name: 'Регистрация права на недвижимость',      note: 'Для физических лиц' },
+};
+
+let gosEnabled = false;
+
+function toggleGosuslugi() {
+  gosEnabled = !gosEnabled;
+  const sw = document.getElementById('toggle-sw');
+  sw.classList.toggle('on', gosEnabled);
+  calcUpdate();
+}
+
+function calcUpdate() {
+  const key = document.getElementById('calc-service').value;
+  const toggle = document.getElementById('gosuslugi-toggle');
+  const resultBlock = document.getElementById('calc-result-block');
+  const emptyMsg = document.getElementById('calc-empty');
+
+  if (!key) {
+    toggle.style.display = 'none';
+    resultBlock.style.display = 'none';
+    emptyMsg.style.display = 'block';
+    return;
+  }
+
+  const svc = FEES[key];
+  toggle.style.display = svc.gosDiscount ? 'flex' : 'none';
+  if (!svc.gosDiscount) gosEnabled = false;
+
+  const discount = (gosEnabled && svc.gosDiscount) ? 0.3 : 0;
+  const final = Math.round(svc.base * (1 - discount));
+
+  const amountEl = document.getElementById('calc-amount');
+  const subEl = document.getElementById('calc-sub');
+  const breakdown = document.getElementById('calc-breakdown');
+
+  amountEl.className = 'calc-result-amount';
+  amountEl.textContent = final + ' ₽';
+  subEl.textContent = svc.note || (gosEnabled && svc.gosDiscount ? 'со скидкой 30% через Госуслуги' : 'стандартная ставка');
+
+  let rows = `<div class="calc-row"><span class="calc-row-label">Базовая пошлина</span><span class="calc-row-val">${svc.base} ₽</span></div>`;
+  if (gosEnabled && svc.gosDiscount) {
+    rows += `<div class="calc-row"><span class="calc-row-label">Скидка через Госуслуги (−30%)</span><span class="calc-row-val" style="color:var(--success)">−${svc.base - final} ₽</span></div>`;
+    rows += `<div class="calc-row"><span class="calc-row-label"><strong>Итого к оплате</strong></span><span class="calc-row-val">${final} ₽</span></div>`;
+  }
+  rows += `<div class="calc-row"><span class="calc-row-label">Оформление в МФЦ</span><span class="calc-row-val free">Бесплатно</span></div>`;
+  breakdown.innerHTML = rows;
+
+  resultBlock.style.display = 'block';
+  emptyMsg.style.display = 'none';
 }
 </script>
 </body>
